@@ -39,7 +39,7 @@ functionality working as you build.
   * pause the counter
   * disable all buttons except the pause button
   * switch the label on the button from "pause" to "resume"
-  
+
 5. As a user, I should be able to click the "restart" button to restart the
    counter and re-enable the buttons.
 6. As a user, I can leave comments on my gameplay, such as: "Wow, what a fun
