@@ -6,6 +6,7 @@ const minusButton = document.getElementById('minus');
 const heartButton = document.getElementById('heart');
 const numberLikes = document.getElementById('.likes');
 const likedNumbers = {};
+const pauseButton = document.getElementById('pause');
 
 function
 incrementTimer() {
@@ -36,6 +37,30 @@ function likeNumber() {
     }
 }
 
+function pauseTimer() {
+
+    if (plus.disabled == pauseBtn) {
+        plus.disabled = !pauseBtn
+        minus.disabled = !pauseBtn
+        heart.disabled = !pauseBtn
+        flag = true
+        pause.textContent = "resume"
+    } else {
+        plus.disabled = pauseBtn
+        minus.disabled = pauseBtn
+        heart.disabled = pauseBtn
+        flag = false
+        pause.textContent = "pause"
+    }
+
+}
+
+function addComment() {
+    const p = document.createElement("p")
+    p.textContent = commentForm.comment.value
+    comments.append(p)
+}
+
 // 2. As a user, I can manually increment and decrement the counter using the plus
 // and minus buttons.
 plusButton.addEventListener('click', incrementTimer);
@@ -48,12 +73,12 @@ minusButton.addEventListener('click', decrementTimer);
 heartButton.addEventListener('click', likeNumber);
 
 // 4. As a user, I can pause the counter, which should:
-
 //     *
 //     pause the counter *
 //     disable all buttons except the pause button *
 //     switch the label on the button from "pause"
 // to "resume"
+pauseButton.addEventListener('click', pauseTimer);
 
 // 5. As a user, I should be able to click the "restart"
 // button to restart the
