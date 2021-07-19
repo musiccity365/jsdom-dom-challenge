@@ -1,5 +1,6 @@
 // 1. As a user, I should see the timer increment every second once the page has
 // loaded.
+
 const counter = document.getElementById('counter');
 const plusButton = document.getElementById('plus');
 const minusButton = document.getElementById('minus');
@@ -7,9 +8,20 @@ const heartButton = document.getElementById('heart');
 const numberLikes = document.getElementById('.likes');
 const likedNumbers = {};
 const pauseButton = document.getElementById('pause');
+const restartButton = document.getElementById('restart');
+const submitButton = document.getElementById('submit')
+const commentForm = document.getElementsByTagName('input')[0]
+const numberComments = document.getElementById('.comments')
+let speedCounter = setInterval(plusCounter, 1000)
+let gameRunning = true
 
-function
-incrementTimer() {
+function plusCounter() {
+    if (gameRunning === true) {
+        counter.innerHTML++
+    }
+};
+
+function incrementTimer() {
     let currentNumber = counter.innerText;
     counter.innerText = parseInt(currentNumber) + 1;
 }
@@ -37,29 +49,38 @@ function likeNumber() {
     }
 }
 
+function addComment() {
+    e.preventDefault();
+    const p = document.createElement("p")
+    let commentInfo = document.createTextNode(`${commentForm.value}`);
+    newComment.appendChild(commentInfo);
+    comments.appendChild(newComment);
+    commentForm.value = '';
+}
+
+
 function pauseTimer() {
 
-    if (plus.disabled == pauseBtn) {
-        plus.disabled = !pauseBtn
-        minus.disabled = !pauseBtn
-        heart.disabled = !pauseBtn
-        flag = true
-        pause.textContent = "resume"
+    if (gameRunning === true) {
+        gameRunning = false
+        pause.innerHTML = "resume";
+        like.disabled = true;
+        minus.disabled = true;
+        plus.disabled = true;
+        submit.disabled = true;
+        commentForm.disabled = true;
     } else {
-        plus.disabled = pauseBtn
-        minus.disabled = pauseBtn
-        heart.disabled = pauseBtn
-        flag = false
-        pause.textContent = "pause"
-    }
+        gameRunning = true;
+        pause.innerHTML = "pause"
+        like.disabled = false;
+        minus.disabled = false;
+        plus.disabled = false;
+        submit.disabled = false;
+        commentForm.disabled = false;
+    };
 
 }
 
-function addComment() {
-    const p = document.createElement("p")
-    p.textContent = commentForm.comment.value
-    comments.append(p)
-}
 
 // 2. As a user, I can manually increment and decrement the counter using the plus
 // and minus buttons.
@@ -83,6 +104,9 @@ pauseButton.addEventListener('click', pauseTimer);
 // 5. As a user, I should be able to click the "restart"
 // button to restart the
 // counter and re - enable the buttons.
+restartButton.addEventListener('click', restart)
+
 // 6. As a user, I can leave comments on my gameplay, such as: "Wow, what a fun
 // game this is.
 // "
+submitButton.addEventListener('click', addComment)
